@@ -57,20 +57,23 @@ async function main() {
     const stakingTokenPrice = (SUSDPrice * totalSUSDInUniswapPair + rewardTokenPrice * totalBASEDInUniswapPair) / totalSupplyOfStakingToken;
 
     // const rewardTokenPrice = (await YFFI_DAI_BALANCER_POOL.getSpotPrice(LINK_TOKEN_ADDR, rewardTokenAddr) / 1e18) * stakingTokenPrice;
+    const SUSDPerStakingToken= totalSUSDInUniswapPair / totalSupplyOfStakingToken;
+    const BASEDPerStakingToken= totalBASEDInUniswapPair / totalSupplyOfStakingToken
+
 
 
     // Finished. Start printing
 
     _print("========== PRICES ==========")
     _print(`1 ${rewardTokenTicker}   = $${rewardTokenPrice}`);
-    _print(`1 ${stakingTokenTicker}   = [${totalSUSDInUniswapPair / totalSupplyOfStakingToken} sUSD, ${totalBASEDInUniswapPair / totalSupplyOfStakingToken} BASED] `);
+    _print(`1 ${stakingTokenTicker}   = [${SUSDPerStakingToken} sUSD, ${BASEDPerStakingToken} BASED] `);
     _print(`          = $${stakingTokenPrice}\n`);
 
     _print("========== STAKING =========")
     _print(`There are total   : ${totalSupplyOfStakingToken} ${stakingTokenTicker}.`);
     _print(`There are total   : ${totalStakedYAmount} ${stakingTokenTicker} staked in ${rewardTokenTicker}'s ${stakingTokenTicker} staking pool.`);
     _print(`                  = ${toDollar(totalStakedYAmount * stakingTokenPrice)}\n`);
-    _print(`You are staking   : ${stakedYAmount} ${stakingTokenTicker} (${toFixed(stakedYAmount * 100 / totalStakedYAmount, 3)}% of the pool)`);
+    _print(`You are staking   : ${stakedYAmount} ${stakingTokenTicker} [${SUSDPerStakingToken * stakedYAmount} sUSD, ${BASEDPerStakingToken * stakedYAmount} BASED] (${toFixed(stakedYAmount * 100 / totalStakedYAmount, 3)}% of the pool)`);
     _print(`                  = ${toDollar(stakedYAmount * stakingTokenPrice)}\n`);
 
 
